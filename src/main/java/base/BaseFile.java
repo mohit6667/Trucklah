@@ -1,0 +1,65 @@
+package base;
+
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
+import page.ItemShiftingPage;
+import page.LoginPage;
+
+public class BaseFile {
+    public static WebDriver driver;
+    public static ExtentHtmlReporter htmlReporter;
+    public static ExtentReports report;
+    public static ExtentTest test;
+
+    public static void openChrome() {
+        WebDriverManager.chromedriver().setup();
+        driver = new ChromeDriver();
+        driver.manage().window().maximize();
+        PageFactory.initElements(driver, LoginPage.class);
+        PageFactory.initElements(driver, ItemShiftingPage.class);
+    }
+
+    public static void login() throws InterruptedException {
+        driver.get(EnvironmentsFile.trucklahUrl);
+        LoginPage.loginMenuButton.click();
+        LoginPage.emailInput.sendKeys(EnvironmentsFile.loginEmail);
+        LoginPage.passwordInput.sendKeys(EnvironmentsFile.loginPassword);
+        JavascriptExecutor scroll = (JavascriptExecutor) driver;
+        scroll.executeScript("arguments[0].scrollIntoView(true);", LoginPage.emailInput);
+        BaseFile.waitForOneSecond();
+        LoginPage.loginButton.click();
+        htmlReporter = new ExtentHtmlReporter("src/main/java/report/TrucklahItemShiftingReport.html");
+        report = new ExtentReports();
+        report.attachReporter(htmlReporter);
+       // test = report.createTest("Opening Chrome & Login");
+    }
+    public static void waitForOneSecond() throws InterruptedException {
+        Thread.sleep(1000);
+    }
+
+    public static void waitForTwoSecond() throws InterruptedException {
+        Thread.sleep(2000);
+    }
+
+    public static void waitForFourSecond() throws InterruptedException {
+        Thread.sleep(4000);
+    }
+
+    public static void waitForThreeSecond() throws InterruptedException {
+        Thread.sleep(3000);
+    }
+
+    public static void waitForSixSecond() throws InterruptedException {
+        Thread.sleep(6000);
+    }
+
+    public static void waitForTenSecond() throws InterruptedException {
+        Thread.sleep(10000);
+    }
+}
