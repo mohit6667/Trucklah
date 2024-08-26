@@ -90,5 +90,7 @@ public class ItemShiftingPage {
     public static WebElement addStopOneMobileNo;
     @FindBy(xpath = "//button[@type='submit']")
     public static WebElement addStopOneDropButton;
+    @FindBy(xpath = "//input[@name='time']")
+    public static WebElement bookingTimeInput;
 
 }

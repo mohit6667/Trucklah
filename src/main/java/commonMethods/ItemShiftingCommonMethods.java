@@ -12,6 +12,8 @@ import page.ItemShiftingPage;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 public class ItemShiftingCommonMethods extends BaseFile {
@@ -69,6 +71,12 @@ public class ItemShiftingCommonMethods extends BaseFile {
         scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.vehicleTypeRadio);
         BaseFile.waitForOneSecond();
         ItemShiftingPage.vehicleTypeRadio.click();
+        LocalTime currentTime = LocalTime.now();
+        LocalTime newTime = currentTime.plusMinutes(3);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String formattedCurrentTime = currentTime.format(formatter);
+        String formattedNewTime = newTime.format(formatter);
+        ItemShiftingPage.bookingTimeInput.sendKeys(formattedNewTime);
         BaseFile.waitForOneSecond();
         scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.nextSubmitButton);
         BaseFile.waitForOneSecond();
@@ -79,14 +87,19 @@ public class ItemShiftingCommonMethods extends BaseFile {
         BaseFile.waitForOneSecond();
         ItemShiftingPage.confirmButton.click();
         BaseFile.waitForOneSecond();
+        String getBookingId = driver.findElement(By.xpath("//span[@class='fw-bolder']")).getText();
+        String[] bookingDetails = getBookingId.split(": ");
+        String bookingId = bookingDetails[1];
         ItemShiftingPage.checkStatusButton.click();
         BaseFile.waitForOneSecond();
         ItemShiftingPage.itemShiftButton.click();
-
-
         WebDriverWait wait4 = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait4.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div"))));
-        List<WebElement> booking = driver.findElements(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div/div"));
+        driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" +bookingId+"']")).click();
+
+
+
+      /*  List<WebElement> booking = driver.findElements(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div/div"));
         Thread.sleep(7000);
         for (WebElement book : booking) {
             System.out.println(book.getText());
@@ -94,7 +107,7 @@ public class ItemShiftingCommonMethods extends BaseFile {
                 book.click();
                 break;
             }
-        }
+        }*/
         return ItemShiftingPage.bookedConfirmationText.isDisplayed();
     }
 

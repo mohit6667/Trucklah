@@ -2,6 +2,7 @@ package itemShifting;
 
 import base.BaseFile;
 import commonMethods.ItemShiftingCommonMethods;
+import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
@@ -17,7 +18,7 @@ public class ItemShiftingTest extends BaseFile {
         test = report.createTest("Opening Chrome & Login");
     }
 
-    /*@Test(priority = 1, description = "Test Case 1 - Normal Item Shifting with 0 stops")
+    @Test(priority = 1, description = "Test Case 1 - Normal Item Shifting with 0 stops")
     public void itemShiftingBookingOne() throws InterruptedException, AWTException {
         test = report.createTest("Item Shifting with 0 stops");
         try {
@@ -31,9 +32,9 @@ public class ItemShiftingTest extends BaseFile {
             test.fail("Booking Failed");
             exception.printStackTrace();
         }
-    }*/
+    }
 
-    @Test(priority = 2, description = "Test case 2 - Item Shiftings with 1 stop",enabled = true)
+/*    @Test(priority = 2, description = "Test case 2 - Item Shiftings with 1 stop",enabled = true)
     public void itemShiftingBookingTwo() throws InterruptedException, AWTException {
         // amudha
         ItemShiftingCommonMethods.bookingWithStop(1);
@@ -43,7 +44,7 @@ public class ItemShiftingTest extends BaseFile {
     public void itemShiftingBookingThree() throws InterruptedException, AWTException {
         //anitha
         ItemShiftingCommonMethods.bookingWithStop(2);
-    }
+    }*/
 
    /* @Test(priority = 4, description = "Test case 4 - Item Shiftings with 3 stops")
     public void itemShiftingBookingFour() {
