@@ -21,7 +21,7 @@ public class ItemShiftingCommonMethods extends BaseFile {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         JavascriptExecutor scroll = (JavascriptExecutor) driver;
         //scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.itemShiftingButton);
-       // BaseFile.waitForOneSecond();
+        // BaseFile.waitForOneSecond();
         ItemShiftingPage.itemShiftingButton.click();
 
         //Entering pickup location & further details
@@ -61,7 +61,7 @@ public class ItemShiftingCommonMethods extends BaseFile {
         BaseFile.waitForTwoSecond();
         ItemShiftingPage.nextScreen.click();
         // 2nd page
-        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait.until(ExpectedConditions.elementToBeClickable(ItemShiftingPage.vehicleTypeRadio));
         scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.manPowerOption);
         BaseFile.waitForOneSecond();
@@ -83,7 +83,7 @@ public class ItemShiftingCommonMethods extends BaseFile {
         ItemShiftingPage.nextSubmitButton.click();
 
         //3rd page
-        scroll.executeScript("arguments[0].scrollIntoView(true);",ItemShiftingPage.confirmButton);
+        scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.confirmButton);
         BaseFile.waitForOneSecond();
         ItemShiftingPage.confirmButton.click();
         BaseFile.waitForOneSecond();
@@ -95,7 +95,7 @@ public class ItemShiftingCommonMethods extends BaseFile {
         ItemShiftingPage.itemShiftButton.click();
         WebDriverWait wait4 = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait4.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div"))));
-        driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" +bookingId+"']")).click();
+        driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" + bookingId + "']")).click();
 
 
 
@@ -111,9 +111,10 @@ public class ItemShiftingCommonMethods extends BaseFile {
         return ItemShiftingPage.bookedConfirmationText.isDisplayed();
     }
 
-    public static void bookingWithStop(int stopCount) throws InterruptedException, AWTException {
+    public static boolean bookingWithStop(int stopCount) throws InterruptedException, AWTException {
+        ItemShiftingPage.bookRideButton.click();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
         JavascriptExecutor scroll = (JavascriptExecutor) driver;
         ItemShiftingPage.itemShiftingButton.click();
         //Entering pickup location & further details
@@ -136,8 +137,9 @@ public class ItemShiftingCommonMethods extends BaseFile {
         ItemShiftingPage.nextButton.click();
         int i = 0;
         int j = stopCount;
-        String[] addresses = {"Viralimalai, Tamil Nadu 621316, India","Tiruchirappalli, Tamil Nadu, India","Chengalpattu, Tamil Nadu, India"};
-        String [] contacts = {"65897425","75897425","85897425","95897425","55897425"};
+        String[] addresses = {"Viralimalai, Tamil Nadu 621316, India", "Tiruchirappalli, Tamil Nadu, India", "Chengalpattu, Tamil Nadu, India", "Tambaram, Chennai, Tamil Nadu, India", "Pallavaram, Chennai, Tamil Nadu, India"};
+        String[] contacts = {"65897425", "75897425", "85897425", "95897425", "55897425"};
+
 
         for (i = 0; i < j; i++) {
             BaseFile.waitForThreeSecond();
@@ -176,7 +178,47 @@ public class ItemShiftingCommonMethods extends BaseFile {
         BaseFile.waitForTwoSecond();
         ItemShiftingPage.nextDropButton.click();
         BaseFile.waitForTwoSecond();
+        scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.nextScreen);
+        BaseFile.waitForOneSecond();
         ItemShiftingPage.nextScreen.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.elementToBeClickable(ItemShiftingPage.vehicleTypeRadio));
+        scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.manPowerOption);
+        BaseFile.waitForOneSecond();
+        ItemShiftingPage.manPowerOption.click();
+        ItemShiftingPage.trollyRequired.click();
+        ItemShiftingPage.msgToDriver.sendKeys(ItemShiftingConstants.driverMessage);
+        scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.vehicleTypeRadio);
+        BaseFile.waitForOneSecond();
+        ItemShiftingPage.vehicleTypeRadio.click();
+        LocalTime currentTime = LocalTime.now();
+        LocalTime newTime = currentTime.plusMinutes(3);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String formattedCurrentTime = currentTime.format(formatter);
+        String formattedNewTime = newTime.format(formatter);
+        ItemShiftingPage.bookingTimeInput.sendKeys(formattedNewTime);
+        BaseFile.waitForOneSecond();
+        scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.nextSubmitButton);
+        BaseFile.waitForOneSecond();
+        ItemShiftingPage.nextSubmitButton.click();
+
+        //3rd page
+        scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.confirmButton);
+        BaseFile.waitForOneSecond();
+        ItemShiftingPage.confirmButton.click();
+        BaseFile.waitForOneSecond();
+        String getBookingId = driver.findElement(By.xpath("//span[@class='fw-bolder']")).getText();
+        String[] bookingDetails = getBookingId.split(": ");
+        String bookingId = bookingDetails[1];
+        ItemShiftingPage.checkStatusButton.click();
+        BaseFile.waitForOneSecond();
+        ItemShiftingPage.itemShiftButton.click();
+        WebDriverWait wait4 = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait4.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div"))));
+        driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" + bookingId + "']")).click();
+
+        return ItemShiftingPage.bookedConfirmationText.isDisplayed();
 
     }
 }

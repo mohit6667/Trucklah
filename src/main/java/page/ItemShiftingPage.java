@@ -73,9 +73,8 @@ public class ItemShiftingPage {
     public static List<WebElement> rowDataInOrders;
     @FindBy(xpath = "//a[contains(@href, 'ridedetailsview')]/div/div")
     public static List<WebElement> exactRowDataInOrders;
-    @FindBy(xpath = "//span[text()='BOOKED']")
+    @FindBy(xpath = "//span[text()='Booked']")
     public static WebElement bookedConfirmationText;
-
     @FindBy(xpath = "//button[@class='btn btn-primary mb-3']")
     public static WebElement addStopOne;
     @FindBy(xpath = "//input[@placeholder='Add more stops' and @value = '']")
@@ -92,5 +91,11 @@ public class ItemShiftingPage {
     public static WebElement addStopOneDropButton;
     @FindBy(xpath = "//input[@name='time']")
     public static WebElement bookingTimeInput;
+    @FindBy(xpath = "//Button[text()='Book Rides']")
+    public static WebElement bookRideButton;
+    @FindBy(xpath = "//button[@class='btn']")
+    public static WebElement profileButton;
+    @FindBy(xpath = "//button[@class='btn logoutButton']")
+    public static WebElement logoutButton;
 
 }
