@@ -142,15 +142,15 @@ public class ItemShiftingCommonMethods extends BaseFile {
 
 
         for (i = 0; i < j; i++) {
-            BaseFile.waitForThreeSecond();
+            BaseFile.waitForOneSecond();
             String address = addresses[i];
             String contact = contacts[i];
             ItemShiftingPage.addStopOne.click();
             ItemShiftingPage.stopAddressBar.sendKeys(address);
-            BaseFile.waitForThreeSecond();
+            BaseFile.waitForOneSecond();
             robot.keyPress(KeyEvent.VK_BACK_SPACE);
             robot.keyRelease(KeyEvent.VK_BACK_SPACE);
-            BaseFile.waitForTwoSecond();
+            BaseFile.waitForOneSecond();
             robot.keyPress(KeyEvent.VK_DOWN);
             robot.keyRelease(KeyEvent.VK_DOWN);
             robot.keyPress(KeyEvent.VK_ENTER);
@@ -158,9 +158,9 @@ public class ItemShiftingCommonMethods extends BaseFile {
             ItemShiftingPage.addStopOneAddress.sendKeys(ItemShiftingConstants.addStopOneAddress);
             ItemShiftingPage.addStopOneContactName.sendKeys(ItemShiftingConstants.addStopOneContactName);
             ItemShiftingPage.addStopOneMobileNo.sendKeys(contact);
-            BaseFile.waitForTwoSecond();
+            BaseFile.waitForOneSecond();
             ItemShiftingPage.addStopOneDropButton.click();
-            BaseFile.waitForThreeSecond();
+            BaseFile.waitForOneSecond();
         }
         BaseFile.waitForOneSecond();
         ItemShiftingPage.dropLocation.sendKeys(ItemShiftingConstants.dropOffLocation);
@@ -219,6 +219,7 @@ public class ItemShiftingCommonMethods extends BaseFile {
         driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" + bookingId + "']")).click();
 
         return ItemShiftingPage.bookedConfirmationText.isDisplayed();
+
 
     }
 }
