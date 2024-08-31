@@ -4,7 +4,6 @@ import base.BaseFile;
 import constants.ItemShiftingConstants;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import page.ItemShiftingPage;
@@ -14,14 +13,13 @@ import java.awt.event.KeyEvent;
 import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 public class ItemShiftingCommonMethods extends BaseFile {
+    public static String cancelBookingId;
+
     public static boolean normalBooking() throws InterruptedException, AWTException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
         JavascriptExecutor scroll = (JavascriptExecutor) driver;
-        //scroll.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.itemShiftingButton);
-        // BaseFile.waitForOneSecond();
         ItemShiftingPage.itemShiftingButton.click();
 
         //Entering pickup location & further details
@@ -96,18 +94,8 @@ public class ItemShiftingCommonMethods extends BaseFile {
         WebDriverWait wait4 = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait4.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div"))));
         driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" + bookingId + "']")).click();
+        cancelBookingId = bookingId;
 
-
-
-      /*  List<WebElement> booking = driver.findElements(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div/div"));
-        Thread.sleep(7000);
-        for (WebElement book : booking) {
-            System.out.println(book.getText());
-            if (book.getText().equals("385.02")) {
-                book.click();
-                break;
-            }
-        }*/
         return ItemShiftingPage.bookedConfirmationText.isDisplayed();
     }
 
@@ -220,6 +208,26 @@ public class ItemShiftingCommonMethods extends BaseFile {
 
         return ItemShiftingPage.bookedConfirmationText.isDisplayed();
 
+
+    }
+
+    public static boolean cancelOrder() throws InterruptedException {
+        JavascriptExecutor scrollExecutor = (JavascriptExecutor) driver;
+        scrollExecutor.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.cancelOrderButton);
+        BaseFile.waitForOneSecond();
+        ItemShiftingPage.cancelOrderButton.click();
+        ItemShiftingPage.cancelRadioReasonOne.click();
+        ItemShiftingPage.cancelConfirmButton.click();
+        ItemShiftingPage.profileButton.click();
+        ItemShiftingPage.myOrdersTab.click();
+        ItemShiftingPage.itemShiftButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOf(ItemShiftingPage.cancelledTab));
+        ItemShiftingPage.cancelledTab.click();
+        WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait2.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div"))));
+        driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" + cancelBookingId + "']")).click();
+        return ItemShiftingPage.CancelConfirmationText.isDisplayed();
 
     }
 }

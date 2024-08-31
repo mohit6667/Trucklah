@@ -25,7 +25,7 @@ public class BaseFile {
         PageFactory.initElements(driver, ItemShiftingPage.class);
     }
 
-    public static void login() throws InterruptedException {
+    public static void login(String fileNameForReport) throws InterruptedException {
         driver.get(EnvironmentsFile.trucklahUrl);
         LoginPage.loginMenuButton.click();
         LoginPage.emailInput.sendKeys(EnvironmentsFile.loginEmail);
@@ -34,11 +34,12 @@ public class BaseFile {
         scroll.executeScript("arguments[0].scrollIntoView(true);", LoginPage.emailInput);
         BaseFile.waitForOneSecond();
         LoginPage.loginButton.click();
-        htmlReporter = new ExtentHtmlReporter("src/main/java/report/TrucklahItemShiftingReport.html");
+        String filePath = "src/main/java/report/" + fileNameForReport;
+        htmlReporter = new ExtentHtmlReporter(filePath);
         report = new ExtentReports();
         report.attachReporter(htmlReporter);
-       // test = report.createTest("Opening Chrome & Login");
     }
+
     public static void waitForOneSecond() throws InterruptedException {
         Thread.sleep(1000);
     }

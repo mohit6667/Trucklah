@@ -15,7 +15,7 @@ public class ItemShiftingTest extends BaseFile {
     @BeforeTest
     public void openAndLogin() throws InterruptedException {
         BaseFile.openChrome();
-        BaseFile.login();
+        BaseFile.login("ItemShiftingTestReport.html");
         test = report.createTest("Opening Chrome & Login");
         test.pass("Login Successful");
     }

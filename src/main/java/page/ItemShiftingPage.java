@@ -98,4 +98,19 @@ public class ItemShiftingPage {
     @FindBy(xpath = "//button[@class='btn logoutButton']")
     public static WebElement logoutButton;
 
+    @FindBy(xpath = "//button[text()='Cancel']")
+    public static WebElement cancelOrderButton;
+    @FindBy(xpath = "//input[@type = 'radio' and @value='Driver is not allocated']")
+    public static WebElement cancelRadioReasonOne;
+    @FindBy(xpath = "//button[text()='Confirm']")
+    public static WebElement cancelConfirmButton;
+    @FindBy(xpath = "//h5[text()='Order Cancelled']")
+    public static WebElement orderCancelledMessage;
+    @FindBy(xpath = "//span[text()='MY ORDERS']")
+    public static WebElement myOrdersTab;
+    @FindBy(xpath = "//button[text()='CANCELLED']")
+    public static WebElement cancelledTab;
+    @FindBy(xpath = "//span[text()='Cancelled']")
+    public static WebElement CancelConfirmationText;
+
 }
