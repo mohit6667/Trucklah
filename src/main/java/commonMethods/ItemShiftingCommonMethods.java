@@ -230,4 +230,20 @@ public class ItemShiftingCommonMethods extends BaseFile {
         return ItemShiftingPage.CancelConfirmationText.isDisplayed();
 
     }
+
+    public static boolean reviewOrder() throws InterruptedException {
+        JavascriptExecutor scrollToReview = (JavascriptExecutor) driver;
+        scrollToReview.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.reviewButton);
+        BaseFile.waitForOneSecond();
+        ItemShiftingPage.reviewButton.click();
+        BaseFile.waitForOneSecond();
+        ItemShiftingPage.starRatingButton.click();
+        ItemShiftingPage.reviewCommentsBox.sendKeys(ItemShiftingConstants.reviewComment);
+        ItemShiftingPage.reviewSubmitButton.click();
+        WebDriverWait wait4 = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait4.until(ExpectedConditions.visibilityOf(ItemShiftingPage.reviewToaster));
+        boolean reviewToasterDisplay = ItemShiftingPage.reviewToaster.isDisplayed();
+        scrollToReview.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.reviewByUserTab);
+        return reviewToasterDisplay;
+    }
 }

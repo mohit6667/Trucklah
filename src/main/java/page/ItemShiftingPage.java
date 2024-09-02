@@ -39,14 +39,10 @@ public class ItemShiftingPage {
     public static WebElement nextDropButton;
     @FindBy(xpath = "//button[text()='Next']")
     public static WebElement nextScreen;
-
-
     @FindBy(xpath = "//input[@id='date']")
     public static WebElement serviceDate;
     @FindBy(xpath = "//input[@id='time']")
     public static WebElement serviceTime;
-
-
     @FindBy(xpath = "//input[@name='vechicleTypeId' and @id='flexRadioDefault1']/following::li[@data-index='6']")
     public static WebElement vehicleTypeRadio;
     @FindBy(name = "driverAsManpower")
@@ -61,14 +57,12 @@ public class ItemShiftingPage {
     public static WebElement msgToDriver;
     @FindBy(xpath = "//button[@type='submit']")
     public static WebElement nextSubmitButton;
-
     @FindBy(xpath = "//button[text()='Confirm and proceed with cash payment']")
     public static WebElement confirmButton;
     @FindBy(xpath = "//button[text()='Check Status']")
     public static WebElement checkStatusButton;
     @FindBy(xpath = "//button[text()='ITEM SHIFT']")
     public static WebElement itemShiftButton;
-
     @FindBy(xpath = "//div[@class='container-fluid']/following::a[contains(@href, 'ridedetailsview')]")
     public static List<WebElement> rowDataInOrders;
     @FindBy(xpath = "//a[contains(@href, 'ridedetailsview')]/div/div")
@@ -97,7 +91,6 @@ public class ItemShiftingPage {
     public static WebElement profileButton;
     @FindBy(xpath = "//button[@class='btn logoutButton']")
     public static WebElement logoutButton;
-
     @FindBy(xpath = "//button[text()='Cancel']")
     public static WebElement cancelOrderButton;
     @FindBy(xpath = "//input[@type = 'radio' and @value='Driver is not allocated']")
@@ -112,5 +105,17 @@ public class ItemShiftingPage {
     public static WebElement cancelledTab;
     @FindBy(xpath = "//span[text()='Cancelled']")
     public static WebElement CancelConfirmationText;
+    @FindBy(xpath = "//button[text()='Review']")
+    public static WebElement reviewButton;
+    @FindBy(xpath = "//*[@id=\"General\"]/div[2]/label[2]")
+    public static WebElement starRatingButton;
+    @FindBy(xpath = "//textarea[@name='reviewComments']")
+    public static WebElement reviewCommentsBox;
+    @FindBy(xpath = "//button[text()='Submit']")
+    public static WebElement reviewSubmitButton;
+    @FindBy(xpath = "//div[text()='Review updated']")
+    public static WebElement reviewToaster;
+    @FindBy(xpath = "//b[text()='Review By User:']")
+    public static WebElement reviewByUserTab;
 
 }
