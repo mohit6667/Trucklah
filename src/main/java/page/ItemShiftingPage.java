@@ -117,5 +117,11 @@ public class ItemShiftingPage {
     public static WebElement reviewToaster;
     @FindBy(xpath = "//b[text()='Review By User:']")
     public static WebElement reviewByUserTab;
+    @FindBy(xpath = "//button[text()='INPROGRESS']/span")
+    public static WebElement inprogressCount;
+    @FindBy(xpath = "//button[text()='COMPLETED']/span")
+    public static WebElement completedCount;
+    @FindBy(xpath = "//button[text()='CANCELLED']/span")
+    public static WebElement cancelledCount;
 
 }

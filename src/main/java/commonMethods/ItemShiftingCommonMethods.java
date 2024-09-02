@@ -226,6 +226,7 @@ public class ItemShiftingCommonMethods extends BaseFile {
         ItemShiftingPage.cancelledTab.click();
         WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait2.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div"))));
+        ItemShiftingCommonMethods.getCountOfOrders();
         driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" + cancelBookingId + "']")).click();
         return ItemShiftingPage.CancelConfirmationText.isDisplayed();
 
@@ -245,5 +246,13 @@ public class ItemShiftingCommonMethods extends BaseFile {
         boolean reviewToasterDisplay = ItemShiftingPage.reviewToaster.isDisplayed();
         scrollToReview.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.reviewByUserTab);
         return reviewToasterDisplay;
+    }
+    public static void getCountOfOrders() {
+        String inProgressCount = ItemShiftingPage.inprogressCount.getText();
+        System.out.println("No of Inprogress Booking: " + inProgressCount);
+        String CompletedCount = ItemShiftingPage.completedCount.getText();
+        System.out.println("No of Completed Booking: " + CompletedCount);
+        String CancelCount = ItemShiftingPage.cancelledCount.getText();
+        System.out.println("No of Cancel Booking: " + CancelCount);
     }
 }
