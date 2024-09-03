@@ -16,6 +16,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ItemShiftingCommonMethods extends BaseFile {
     public static String cancelBookingId;
+    public static String inProgressCount, completedCount, cancelCount;
 
     public static boolean normalBooking() throws InterruptedException, AWTException {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
@@ -226,7 +227,9 @@ public class ItemShiftingCommonMethods extends BaseFile {
         ItemShiftingPage.cancelledTab.click();
         WebDriverWait wait2 = new WebDriverWait(driver, Duration.ofSeconds(20));
         wait2.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath("//a[contains(@href, 'ridedetailsview')]/div/div"))));
-        ItemShiftingCommonMethods.getCountOfOrders();
+        inProgressCount = ItemShiftingPage.inprogressCount.getText();
+        completedCount = ItemShiftingPage.completedCount.getText();
+        cancelCount = ItemShiftingPage.cancelledCount.getText();
         driver.findElement(By.xpath("//a[@href= '/ridedetailsview/" + cancelBookingId + "']")).click();
         return ItemShiftingPage.CancelConfirmationText.isDisplayed();
 
@@ -235,7 +238,7 @@ public class ItemShiftingCommonMethods extends BaseFile {
     public static boolean reviewOrder() throws InterruptedException {
         JavascriptExecutor scrollToReview = (JavascriptExecutor) driver;
         scrollToReview.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.reviewButton);
-        BaseFile.waitForOneSecond();
+        BaseFile.waitForTwoSecond();
         ItemShiftingPage.reviewButton.click();
         BaseFile.waitForOneSecond();
         ItemShiftingPage.starRatingButton.click();
@@ -247,12 +250,11 @@ public class ItemShiftingCommonMethods extends BaseFile {
         scrollToReview.executeScript("arguments[0].scrollIntoView(true);", ItemShiftingPage.reviewByUserTab);
         return reviewToasterDisplay;
     }
+
     public static void getCountOfOrders() {
-        String inProgressCount = ItemShiftingPage.inprogressCount.getText();
-        System.out.println("No of Inprogress Booking: " + inProgressCount);
-        String CompletedCount = ItemShiftingPage.completedCount.getText();
-        System.out.println("No of Completed Booking: " + CompletedCount);
-        String CancelCount = ItemShiftingPage.cancelledCount.getText();
-        System.out.println("No of Cancel Booking: " + CancelCount);
+        test = report.createTest("Count of orders");
+        test.info("Inprogress : " + inProgressCount);
+        test.info("Completed  : " + completedCount);
+        test.info("Cancelled  : " + cancelCount);
     }
 }

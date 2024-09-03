@@ -22,7 +22,7 @@ public class ItemShiftingTestTwo extends BaseFile {
     }
 
     @Test(priority = 1, description = "Test case one - To check cancel process of an order")
-    public void cancelOrderCheck(){
+    public void cancelOrderCheck() {
         test = report.createTest("Item Shifting with 0 stops");
         try {
             boolean bookingOutput = ItemShiftingCommonMethods.normalBooking();
@@ -46,8 +46,9 @@ public class ItemShiftingTestTwo extends BaseFile {
             exception.printStackTrace();
         }
     }
-    @Test(priority = 2,description = "Test Cae two - To check review function of cancelled order/booking")
-    public void reviewCheck(){
+
+    @Test(priority = 2, description = "Test Cae two - To check review function of cancelled order/booking")
+    public void reviewCheck() {
         test = report.createTest("Review check for cancelled order");
         try {
             boolean reviewToasterDisplay = ItemShiftingCommonMethods.reviewOrder();
@@ -55,7 +56,7 @@ public class ItemShiftingTestTwo extends BaseFile {
             if (reviewToasterDisplay) {
                 test.pass("Review added successfully");
             }
-        }catch (Exception exception) {
+        } catch (Exception exception) {
             test.fail("Review add is Failed/Failure");
             exception.printStackTrace();
         }
@@ -63,7 +64,8 @@ public class ItemShiftingTestTwo extends BaseFile {
 
     @AfterTest
     public void close() {
+        ItemShiftingCommonMethods.getCountOfOrders();
         report.flush();
-        //driver.close();
+        driver.close();
     }
 }
