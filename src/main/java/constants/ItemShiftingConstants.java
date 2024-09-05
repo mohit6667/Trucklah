@@ -17,4 +17,6 @@ public class ItemShiftingConstants {
     public static String addStopOneContactName = "Anitha";
     public static String addStopOneMobileNo = "98765431";
     public static String reviewComment = "Review Test";
+    public static String wrongEmail = "abdfg@gmail.com";
+    public static String wrongPass = "4242457865787";
 }
