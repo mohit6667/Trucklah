@@ -14,4 +14,8 @@ public class LoginPage {
     public static WebElement loginButton;
     @FindBy(xpath = "//div[text()='Invalid Username']")
     public static WebElement invalidUserToaster;
+    @FindBy(xpath = "//div[text()='Invalid Username or wrong Password entered']")
+    public static WebElement invalidPasswordToaster;
+    @FindBy(xpath = "//div[text()='Login Successful!']")
+    public static WebElement loginSuccessToaster;
 }

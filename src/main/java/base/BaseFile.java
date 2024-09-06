@@ -6,10 +6,15 @@ import com.aventstack.extentreports.reporter.ExtentHtmlReporter;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import page.ItemShiftingPage;
 import page.LoginPage;
+
+import java.time.Duration;
 
 public class BaseFile {
     public static WebDriver driver;
@@ -62,5 +67,17 @@ public class BaseFile {
 
     public static void waitForTenSecond() throws InterruptedException {
         Thread.sleep(10000);
+    }
+
+    public static boolean loginTest(String email, String password, WebElement toaster) {
+        driver.navigate().refresh();
+        JavascriptExecutor scroll = (JavascriptExecutor) driver;
+        scroll.executeScript("arguments[0].scrollIntoView(true);", LoginPage.emailInput);
+        LoginPage.emailInput.sendKeys(email);
+        LoginPage.passwordInput.sendKeys(password);
+        LoginPage.loginButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        wait.until(ExpectedConditions.visibilityOf(toaster));
+        return toaster.isDisplayed();
     }
 }
